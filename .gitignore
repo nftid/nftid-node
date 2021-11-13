@@ -1,0 +1,11 @@
+nftid-node
+.env
+*.out
+*.test
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+.DS_Store
+.idea
