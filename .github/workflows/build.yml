@@ -23,7 +23,7 @@ jobs:
       - name: Compile
         run: |
           go mod download
-          cd cmd/nfid-node
+          cd cmd/nftid-node
           go build .
       - uses: actions/upload-artifact@v2
         with:
