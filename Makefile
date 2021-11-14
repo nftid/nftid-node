@@ -1,8 +1,8 @@
 build:
-	go build -o nftid-node main.go
+	go build -o build/nftid-node main.go
 
 run: build
-	./nftid-node
+	build/nftid-node
 
 watch:
 	reflex -s -r '\.go$$' make run
