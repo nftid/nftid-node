@@ -18,20 +18,20 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN go build -o main .
+RUN go build -o nftid-node ./cmd/nftid-node/main.go
 
 # Move to /dist directory as the place for resulting binary folder
 WORKDIR /dist
 
 # Copy binary from build to main folder
-RUN cp /build/main .
+RUN cp /build/nftid-node .
 
 # Build a small image
 FROM scratch
 
-COPY --from=builder /dist/main /
+COPY --from=builder /dist/nftid-node /
 
 EXPOSE 7535
 
 # Command to run
-ENTRYPOINT ["/main"]
+ENTRYPOINT ["/nftid-node"]

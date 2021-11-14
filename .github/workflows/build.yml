@@ -1,0 +1,31 @@
+name: Build
+on: [push, pull_request]
+
+# Cross-platform testing
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+        targetos: [darwin, linux]
+    name: nftid-node ${{ matrix.arch }} for ${{ matrix.targetos }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup go
+        uses: actions/setup-go@v2.1.4
+        with:
+          go-version: 1.17
+        env:
+          GOOS: ${{ matrix.targetos }}
+          GOARCH: ${{ matrix.arch }}
+
+      - name: Compile
+        run: |
+          go mod download
+          cd cmd/nfid-node
+          go build .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nftid-node ${{ matrix.targetos }} ${{ matrix.arch }}
+          path: cmd/nftid-node/nftid-node
